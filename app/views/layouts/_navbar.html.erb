@@ -1,0 +1,43 @@
+<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+  <div class="container-fluid", id="#nav-container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Tennis</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="navbar-collapse-1">
+      <ul class="nav navbar-nav", id="navbar">
+        <% if !current_user %>
+        <li><%= link_to "Sign-Up", new_user_registration_path %></li>
+        <li><%= link_to "Log-In", new_user_session_path %></li>
+        <% else %>
+        <li><%= link_to "Leauges", leagues_path %></li>
+        <% end %>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user || user_signed_in? %>
+          <li id="avatar">
+            <%= link_to  edit_user_registration_path do %>
+              <%= image_tag(current_user.get_avatar, class: "avatar pull-left media-object") %>
+              <span id="first_name"><%= current_user.display_name %></span>
+            <% end %>
+          </li>
+          <% if current_user.persisted? %>
+            <li><%= link_to 'Dashboard', user_path(current_user.id) %></li>
+          <% end %>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete, id: "sign_out" %></li>
+
+        <% end %>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>

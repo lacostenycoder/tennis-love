@@ -1,0 +1,43 @@
+- model_class = League
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><b>Active Players</b></div>
+  <div class="panel-body">
+  </div>
+  <!-- Table -->
+  <table class="table">
+    - count = 0
+    - @league.users.each do |user|
+      td=link_to user.get_name, user_path(user.id)
+      - count += 1
+      -if count > 3
+        tr
+        -count = 0
+      end
+
+    end
+  </table>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><b>League Info</b></div>
+  <div class="panel-body">
+    p #{@league.name} | #{@league.city} | #{@league.state}
+    p Scoring Format: #{@league.score_format}
+    p
+      strong Contact:
+      |  #{@league.manager.get_name if @league.manager}
+  </div>
+</div>
+
+
+= link_to t('.back', :default => t("helpers.links.back")), leagues_path, :class => 'btn btn-default'
+- if current_user.admin? || @league.manager == current_user
+  '
+  = link_to t('.edit', :default => t("helpers.links.edit")), edit_league_path(@league), :class => 'btn btn-default'
+  '
+  = link_to t('.destroy', :default => t("helpers.links.destroy")), league_path(@league), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

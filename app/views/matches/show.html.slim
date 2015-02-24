@@ -1,0 +1,10 @@
+p#notice = notice
+
+h4
+  strong Date:
+  = @match.datetime
+  = @match.score
+
+= link_to 'Edit', edit_match_path(@match)
+'|
+= link_to 'Back', matches_path

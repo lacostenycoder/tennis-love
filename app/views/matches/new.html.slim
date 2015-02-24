@@ -1,0 +1,30 @@
+h1 New match
+
+/ == render 'form'
+= form_for @match do |f|
+  - if @match.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@match.errors.count, "error")} prohibited this match from being saved:"
+      ul
+        - @match.errors.full_messages.each do |message|
+          li = message
+  .field
+    = f.label :date
+    = f.datetime_select :datetime
+  .field
+    = f.label :player_one
+    = collection_select(:user_1, :user_id, User.all, :id, :get_name)
+    = f.label :score
+    = select(:set_1, 'p1', {:set_one => set_range}, {:class => "sets"}  )
+    = select(:set_2, 'p1', {:set_two => set_range}, {:class => "sets"}  )
+    = select(:set_3, 'p1', {:set_three => set_range}, {:class => "sets"}  )
+  .field
+    = f.label :player_two
+    = collection_select(:user_2, :user_id, User.all, :id, :get_name)
+    = f.label :score
+    = select(:set_1, 'p2', {:set_one => set_range}, {:class => "sets"}  )
+    = select(:set_2, 'p2', {:set_two => set_range}, {:class => "sets"}  )
+    = select(:set_3, 'p2', {:set_three => set_range}, {:class => "sets"}  )
+  .actions = f.submit "Submit Score"
+
+= link_to 'Back', matches_path
