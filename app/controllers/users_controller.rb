@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include UsersHelper
   include MatchesHelper
   #before_action :authenticate, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_user, except: [:new, :create]
+  before_action :set_user, except: [:new, :show, :create]
 
   before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    @user = User.find params[:id]
   end
 
   # GET /users/new
