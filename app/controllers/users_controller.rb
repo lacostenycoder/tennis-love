@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include UsersHelper
+  include MatchesHelper
   #before_action :authenticate, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_user, except: [:new, :create]
 

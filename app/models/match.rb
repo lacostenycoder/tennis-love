@@ -24,7 +24,23 @@ class Match < ActiveRecord::Base
   end
 
   def score
-    #binding.pry
+    sets = []
+    setts.each do |sett|
+      sets << sett.score
+    end
+    sets
+  end
+
+  def format_score
+    str = ""
+    sets = score
+    count = 0
+    sets.each do |set|
+      str += "#{set[:p1]}-#{set[:p2]}"
+      count += 1
+      str += ', ' unless count >= sets.length
+    end
+    str
   end
 
   def update(params)

@@ -1,0 +1,17 @@
+.panel.panel-success
+  .panel-heading
+    b My Matches
+  .panel-body
+    table class="table table-bordered"
+      tr
+        th Player One
+        th Player Two
+        th Winner
+        th Score
+      - if @user.matches.any?
+        - for match in @user.matches
+          tr
+            td = match.player_one.get_name
+            td = match.player_two.get_name
+            td class="success" = match.winner.get_name
+            td = match.format_score
